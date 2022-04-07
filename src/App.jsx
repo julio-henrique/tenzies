@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Die from "./Die"
+import { Die } from "./components/Die"
 import { nanoid } from "nanoid"
 import Confetti from "react-confetti"
 
@@ -42,6 +42,11 @@ export default function App() {
                 die :
                 generateNewDie()
         }))
+
+        if(tenzies) {
+            setTenzies(false)
+            setDice(allNewDice)
+        }
     }
     
     function holdDice(id) {
