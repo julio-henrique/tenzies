@@ -9,7 +9,7 @@ export default function App() {
 
     const [dice, setDice] = useState(allNewDice())
     const [tenzies, setTenzies] = useState(false)
-    
+
     useEffect(() => {
         const allHeld = dice.every(die => die.isHeld)
         const firstValue = dice[0].value
@@ -27,7 +27,7 @@ export default function App() {
             id: nanoid()
         }
     }
-    
+
     function allNewDice() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
@@ -35,51 +35,51 @@ export default function App() {
         }
         return newDice
     }
-    
+
     function rollDice() {
         setDice(oldDice => oldDice.map(die => {
-            return die.isHeld ? 
+            return die.isHeld ?
                 die :
                 generateNewDie()
         }))
 
-        if(tenzies) {
+        if (tenzies) {
             setTenzies(false)
             setDice(allNewDice)
         }
     }
-    
+
     function holdDice(id) {
         setDice(oldDice => oldDice.map(die => {
-            return die.id === id ? 
-                {...die, isHeld: !die.isHeld} :
+            return die.id === id ?
+                { ...die, isHeld: !die.isHeld } :
                 die
         }))
     }
-    
+
     const diceElements = dice.map(die => (
-        <Die 
-            key={die.id} 
-            value={die.value} 
-            isHeld={die.isHeld} 
+        <Die
+            key={die.id}
+            value={die.value}
+            isHeld={die.isHeld}
             holdDice={() => holdDice(die.id)}
         />
     ))
-    
+
     return (
         <main>
             {tenzies && <Confetti />}
             <h1 className="title">Tenzies</h1>
-            <p className="instructions">Roll until all dice are the same. 
-            Click each die to freeze it at its current value between rolls.</p>
+            <p className="instructions">Continue a rolar até que  os dados sejam iguais.
+                Clique em cada dado para "segurar" ele no seu valor atual entre as rolagens.</p>
             <div className="dice-container">
                 {diceElements}
             </div>
-            <button 
-                className="roll-dice" 
+            <button
+                className="roll-dice"
                 onClick={rollDice}
             >
-                {tenzies ? "New Game" : "Roll"}
+                {tenzies ? "Novo Jogo" : "Rolar"}
             </button>
         </main>
     )
